@@ -26,36 +26,36 @@ class ContaCorrente:
         return horario_BR.strftime('%d/%m/%Y %H:%M:%S')
 
     def __init__(self, nome, cpf, agencia, num_conta):
-        self.nome = nome
-        self.cpf = cpf
-        self.saldo = 0
-        self.limite = None
-        self.agencia = agencia
-        self.num_conta = num_conta
-        self.transacoes = []
+        self._nome = nome
+        self._cpf = cpf
+        self._saldo = 0
+        self._limite = None
+        self._agencia = agencia
+        self._num_conta = num_conta
+        self._transacoes = []
 
     def consultar_saldo(self):
-        print('Saldo atual da conta {}: R$ {:,.2f}.'.format(self.nome, self.saldo))
+        print('Saldo atual da conta {}: R$ {:,.2f}.'.format(self._nome, self._saldo))
 
     def depositar(self, valor):
         print('===DEPÓSITO===')
         print('Depositando R$ {:,.2f}.'.format(valor))
-        self.saldo += valor
-        self.transacoes.append((valor, 'Saldo: {}'.format(self.saldo), ContaCorrente._data_hora()))
+        self._saldo += valor
+        self._transacoes.append((valor, 'Saldo: {}'.format(self._saldo), ContaCorrente._data_hora()))
 
     def _limite_conta(self):
-        self.limite = -1000
-        return self.limite
+        self._limite = -1000
+        return self._limite
 
     def sacar(self, valor):
         print('===SAQUE===')
-        if self.saldo - valor < self._limite_conta():
+        if self._saldo - valor < self._limite_conta():
             print('Você não tem saldo suficiente para sacar o valor de R$ {:,.2f}.'.format(valor))
             self.consultar_saldo()
         else:
-            self.saldo -= valor
-            print('Sacando R$ {:,.2f}. Saldo após o saque: R$ {:,.2f}.'.format(valor, self.saldo))
-            self.transacoes.append((-valor, 'Saldo: {}'.format(self.saldo), ContaCorrente._data_hora()))
+            self._saldo -= valor
+            print('Sacando R$ {:,.2f}. Saldo após o saque: R$ {:,.2f}.'.format(valor, self._saldo))
+            self._transacoes.append((-valor, 'Saldo: {}'.format(self._saldo), ContaCorrente._data_hora()))
 
     def consultar_limite(self):
         print('Limite de cheque especial: R$ {:,.2f}.'. format(self._limite_conta()))
@@ -63,19 +63,19 @@ class ContaCorrente:
     def consultar_historico_transacoes(self):
         print('===== Histórico de Transações =====')
         print('== Valor, Saldo, Data e Hora ==')
-        for transacao in self.transacoes:
+        for transacao in self._transacoes:
             print(transacao)
 
     def transferir(self, valor, conta_destino):
-        self.saldo -= valor
-        self.transacoes.append((-valor, 'Saldo: {}'.format(self.saldo), ContaCorrente._data_hora()))
-        conta_destino.saldo += valor
-        conta_destino.transacoes.append((valor, 'Saldo: {}'.format(conta_destino.saldo), ContaCorrente._data_hora()))
+        self._saldo -= valor
+        self._transacoes.append((-valor, 'Saldo: {}'.format(self._saldo), ContaCorrente._data_hora()))
+        conta_destino._saldo += valor
+        conta_destino._transacoes.append((valor, 'Saldo: {}'.format(conta_destino._saldo), ContaCorrente._data_hora()))
 
 
 #programa
 conta_Yara = ContaCorrente("Yara", "111.222.333.45", '1234', '0001-1')
-print(f'=== Nome: {conta_Yara.nome} - Ag: {conta_Yara.agencia} - C/c: {conta_Yara.num_conta}.===')
+print(f'=== Nome: {conta_Yara._nome} - Ag: {conta_Yara._agencia} - C/c: {conta_Yara._num_conta}.===')
 conta_Yara.depositar(10000)
 conta_Yara.sacar(500)
 conta_Yara.consultar_limite()
@@ -83,13 +83,11 @@ print('-' * 20)
 conta_Yara.consultar_historico_transacoes()
 
 print('-' * 20)
-conta_maeLira = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
-conta_Yara.transferir(200, conta_maeLira)
+conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
+conta_Yara.transferir(200, conta_Zé)
 
 conta_Yara.consultar_saldo()
-conta_maeLira.consultar_saldo()
+conta_Zé.consultar_saldo()
 
 conta_Yara.consultar_historico_transacoes()
-conta_maeLira.consultar_historico_transacoes()
-
-help(ContaCorrente)
+conta_Zé.consultar_historico_transacoes()
