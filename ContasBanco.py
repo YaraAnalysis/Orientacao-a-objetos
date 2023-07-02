@@ -1,5 +1,6 @@
 from datetime import datetime
 import pytz
+from random import randint
 
 
 class ContaCorrente:
@@ -33,6 +34,7 @@ class ContaCorrente:
         self._agencia = agencia
         self._num_conta = num_conta
         self._transacoes = []
+        self.cartoes = []
 
     def consultar_saldo(self):
         print('Saldo atual da conta {}: R$ {:,.2f}.'.format(self._nome, self._saldo))
@@ -72,9 +74,40 @@ class ContaCorrente:
         conta_destino._saldo += valor
         conta_destino._transacoes.append((valor, 'Saldo: {}'.format(conta_destino._saldo), ContaCorrente._data_hora()))
 
+class CartaoCredito:
+
+    @staticmethod
+    def _data_hora():
+        fuso_BR = pytz.timezone('Brazil/East')
+        horario_BR = datetime.now(fuso_BR)
+        return horario_BR
+    def __init__(self, titular, conta_corrente):
+        self.numero = randint(1000000000000000, 9999999999999999)
+        self.titular = titular
+        self.validade = '{}/{}'.format(CartaoCredito._data_hora().month, CartaoCredito._data_hora().year + 4)
+        self.cod_seguranca = '{}{}{}'.format(randint(0,9), randint(0,9), randint(0,9))
+        self.limite = 1000
+        self.conta_corrente = conta_corrente
+        conta_corrente.cartoes.append(self)
+
 
 #programa
 conta_Yara = ContaCorrente("Yara", "111.222.333.45", '1234', '0001-1')
+conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
+
+cartao_Yara = CartaoCredito('Yara', conta_Yara)
+cartao_Zé = CartaoCredito('Zé', conta_Zé)
+
+print(cartao_Yara.titular)
+print(cartao_Yara.conta_corrente._num_conta)
+
+print(cartao_Yara.conta_corrente.cartoes[0].numero)
+print(cartao_Zé.numero)
+print(cartao_Yara.cod_seguranca)
+print(cartao_Yara.validade)
+
+
+'''
 print(f'=== Nome: {conta_Yara._nome} - Ag: {conta_Yara._agencia} - C/c: {conta_Yara._num_conta}.===')
 conta_Yara.depositar(10000)
 conta_Yara.sacar(500)
@@ -83,11 +116,11 @@ print('-' * 20)
 conta_Yara.consultar_historico_transacoes()
 
 print('-' * 20)
-conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
+
 conta_Yara.transferir(200, conta_Zé)
 
 conta_Yara.consultar_saldo()
 conta_Zé.consultar_saldo()
 
 conta_Yara.consultar_historico_transacoes()
-conta_Zé.consultar_historico_transacoes()
+conta_Zé.consultar_historico_transacoes() '''
