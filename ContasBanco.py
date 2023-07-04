@@ -27,17 +27,17 @@ class ContaCorrente:
         return horario_BR.strftime('%d/%m/%Y %H:%M:%S')
 
     def __init__(self, nome, cpf, agencia, num_conta):
-        self._nome = nome
-        self._cpf = cpf
+        self.nome = nome
+        self.cpf = cpf
         self._saldo = 0
         self._limite = None
-        self._agencia = agencia
-        self._num_conta = num_conta
+        self.agencia = agencia
+        self.num_conta = num_conta
         self._transacoes = []
         self.cartoes = []
 
     def consultar_saldo(self):
-        print('Saldo atual da conta {}: R$ {:,.2f}.'.format(self._nome, self._saldo))
+        print('Saldo atual da conta {}: R$ {:,.2f}.'.format(self.nome, self._saldo))
 
     def depositar(self, valor):
         print('===DEPÓSITO===')
@@ -87,8 +87,20 @@ class CartaoCredito:
         self.validade = '{}/{}'.format(CartaoCredito._data_hora().month, CartaoCredito._data_hora().year + 4)
         self.cod_seguranca = '{}{}{}'.format(randint(0,9), randint(0,9), randint(0,9))
         self.limite = 1000
+        self._senha = '1234'
         self.conta_corrente = conta_corrente
         conta_corrente.cartoes.append(self)
+
+    @property  #método GET
+    def senha(self):
+        return self._senha
+
+    @senha.setter  #método SET
+    def senha(self, valor):
+        if len(valor) == 4 and valor.isnumeric():
+            self._senha = valor
+        else:
+            print("Nova senha inválida.")
 
 
 #programa
@@ -98,13 +110,18 @@ conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
 cartao_Yara = CartaoCredito('Yara', conta_Yara)
 cartao_Zé = CartaoCredito('Zé', conta_Zé)
 
-print(cartao_Yara.titular)
-print(cartao_Yara.conta_corrente._num_conta)
+cartao_Yara.senha = '4321'
+print(cartao_Yara.senha)
+
+
+
+'''print(cartao_Yara.titular)
+print(cartao_Yara.conta_corrente.num_conta)
 
 print(cartao_Yara.conta_corrente.cartoes[0].numero)
 print(cartao_Zé.numero)
 print(cartao_Yara.cod_seguranca)
-print(cartao_Yara.validade)
+print(cartao_Yara.validade)'''
 
 
 '''
