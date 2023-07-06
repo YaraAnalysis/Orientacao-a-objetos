@@ -91,11 +91,11 @@ class CartaoCredito:
         self.conta_corrente = conta_corrente
         conta_corrente.cartoes.append(self)
 
-    @property  #método GET
+    @property  #método GETTER
     def senha(self):
         return self._senha
 
-    @senha.setter  #método SET
+    @senha.setter  #método SETTER
     def senha(self, valor):
         if len(valor) == 4 and valor.isnumeric():
             self._senha = valor
@@ -113,6 +113,8 @@ cartao_Zé = CartaoCredito('Zé', conta_Zé)
 cartao_Yara.senha = '4321'
 print(cartao_Yara.senha)
 
+print(conta_Yara.__dict__)
+print(cartao_Yara.__dict__)
 
 
 '''print(cartao_Yara.titular)
