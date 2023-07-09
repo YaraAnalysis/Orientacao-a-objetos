@@ -25,7 +25,12 @@ class Agencia:
 
 
 class AgenciaVirtual(Agencia):
-    pass
+
+    def __init__(self, site, telefone, cnpj):
+        self.site = site
+        super().__init__(telefone, cnpj, 1000)
+        self.caixa = 1000000
+
 
 class AgenciaComum(Agencia):
     pass
@@ -35,9 +40,9 @@ class AgenciaPremium(Agencia):
 
 
 #AgenciaVirtual
-agencia_virtual = AgenciaVirtual('99999999', 15246985000, 1000)
-agencia_virtual.caixa = 15000
+agencia_virtual = AgenciaVirtual('www.agenciavirtual.com.br', 22224444, 142365987)
 agencia_virtual.verificar_caixa()
+print(agencia_virtual.clientes)
 
 #AgenciaPremium
 agencia_premium = AgenciaPremium(22225555, 162345987, 1234)
