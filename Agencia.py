@@ -32,6 +32,15 @@ class AgenciaVirtual(Agencia):
         self.site = site
         super().__init__(telefone, cnpj, 1000)
         self.caixa = 1000000
+        self.caixa_paypal = 0
+
+    def depositar_paypal(self, valor):
+        self.caixa -= valor
+        self.caixa_paypal += valor
+
+    def sacar_paypal(self):
+        self.caixa_paypal -= valor
+        self.caixa += valor
 
 
 class AgenciaComum(Agencia):
@@ -49,21 +58,26 @@ class AgenciaPremium(Agencia):
 #AgenciaVirtual
 agencia_virtual = AgenciaVirtual('www.agenciavirtual.com.br', 22224444, 142365987)
 agencia_virtual.verificar_caixa()
-print(agencia_virtual.site)
+#print(agencia_virtual.site)
 
 #AgenciaComum
 agencia_comum = AgenciaComum(22225555, 255000000000)
-agencia_comum.verificar_caixa()
+#agencia_comum.verificar_caixa()
 
 #AgenciaPremium
 agencia_premium = AgenciaPremium(22225555, 162345987)
-agencia_premium.verificar_caixa()
+#agencia_premium.verificar_caixa()
 
-#Agencia1
+agencia_virtual.depositar_paypal(20000)
+print(agencia_virtual.caixa)
+print(agencia_virtual.caixa_paypal)
+
+
+'''#Agencia1
 agencia1 = Agencia('22223333', 200000000000, 4568)
 agencia1.caixa = 1000000
 agencia1.verificar_caixa()
 agencia1.emprestar_dinheiro(1500, 12345678912, 0.02)
 print(agencia1.emprestimos)
 agencia1.adicionar_cliente('Yara', 12345678912, 100000)
-print(agencia1.clientes)
+print(agencia1.clientes)'''
