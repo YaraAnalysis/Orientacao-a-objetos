@@ -1,18 +1,21 @@
 from ContasBancos import ContaCorrente, CartaoCredito
+from Agencia import AgenciaPremium, AgenciaComum, AgenciaVirtual
 
-#programa
-conta_Yara = ContaCorrente("Yara", "111.222.333.45", '1234', '0001-1')
-conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
+# #programa
+# conta_Yara = ContaCorrente("Yara", "111.222.333.45", '1234', '0001-1')
+# conta_Zé = ContaCorrente('Beth', '123.456,789-55', '5555', '0002-2')
+#
+# cartao_Yara = CartaoCredito('Yara', conta_Yara)
+# cartao_Zé = CartaoCredito('Zé', conta_Zé)
+#
+# cartao_Yara.senha = '4321'
+# print(cartao_Yara.senha)
+#
+# print(conta_Yara.__dict__)
+# print(cartao_Yara.__dict__)
 
-cartao_Yara = CartaoCredito('Yara', conta_Yara)
-cartao_Zé = CartaoCredito('Zé', conta_Zé)
-
-cartao_Yara.senha = '4321'
-print(cartao_Yara.senha)
-
-print(conta_Yara.__dict__)
-print(cartao_Yara.__dict__)
-
+agencia_premium_especial = AgenciaPremium(22221111, 1588888888888, )
+print(agencia_premium_especial.caixa)
 
 '''print(cartao_Yara.titular)
 print(cartao_Yara.conta_corrente.num_conta)

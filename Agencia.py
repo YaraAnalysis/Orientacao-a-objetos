@@ -60,34 +60,36 @@ class AgenciaPremium(Agencia):
             print('O Client não tem o patromônio mínimo necessário para entrar na Agência Premium.')
 
 
-#AgenciaVirtual
-agencia_virtual = AgenciaVirtual('www.agenciavirtual.com.br', 22224444, 142365987)
-agencia_virtual.verificar_caixa()
-#print(agencia_virtual.site)
+if __name__ == '__main__':
 
-#AgenciaComum
-agencia_comum = AgenciaComum(22225555, 255000000000)
-#agencia_comum.verificar_caixa()
+    # AgenciaVirtual
+    agencia_virtual = AgenciaVirtual('www.agenciavirtual.com.br', 22224444, 142365987)
+    agencia_virtual.verificar_caixa()
+    # print(agencia_virtual.site)
 
-#AgenciaPremium
-agencia_premium = AgenciaPremium(22225555, 162345987)
-#agencia_premium.verificar_caixa()
+    # AgenciaComum
+    agencia_comum = AgenciaComum(22225555, 255000000000)
+    # agencia_comum.verificar_caixa()
 
-agencia_virtual.depositar_paypal(20000)
-print(agencia_virtual.caixa)
-print(agencia_virtual.caixa_paypal)
+    # AgenciaPremium
+    agencia_premium = AgenciaPremium(22225555, 162345987)
+    # agencia_premium.verificar_caixa()
 
-agencia_premium.adicionar_cliente('Yara', 78912346, 50000000)
-print(agencia_premium.clientes)
+    agencia_virtual.depositar_paypal(20000)
+    print(agencia_virtual.caixa)
+    print(agencia_virtual.caixa_paypal)
 
-agencia_comum.adicionar_cliente('Lira', 456789123, 10)
-print(agencia_comum.clientes)
+    agencia_premium.adicionar_cliente('Yara', 78912346, 50000000)
+    print(agencia_premium.clientes)
 
-'''#Agencia1
-agencia1 = Agencia('22223333', 200000000000, 4568)
-agencia1.caixa = 1000000
-agencia1.verificar_caixa()
-agencia1.emprestar_dinheiro(1500, 12345678912, 0.02)
-print(agencia1.emprestimos)
-agencia1.adicionar_cliente('Yara', 12345678912, 100000)
-print(agencia1.clientes)'''
+    agencia_comum.adicionar_cliente('Lira', 456789123, 10)
+    print(agencia_comum.clientes)
+
+    '''#Agencia1
+    agencia1 = Agencia('22223333', 200000000000, 4568)
+    agencia1.caixa = 1000000
+    agencia1.verificar_caixa()
+    agencia1.emprestar_dinheiro(1500, 12345678912, 0.02)
+    print(agencia1.emprestimos)
+    agencia1.adicionar_cliente('Yara', 12345678912, 100000)
+    print(agencia1.clientes)'''
